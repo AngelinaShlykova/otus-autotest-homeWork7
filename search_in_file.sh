@@ -3,7 +3,6 @@
 file=""
 search=""
 
-# Парсинг аргументов
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --file)
@@ -21,7 +20,6 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# Валидация
 if [[ -z "$file" || -z "$search" ]]; then
     echo "Использование: $0 --file <путь> --search <строка>"
     exit 1
@@ -32,10 +30,7 @@ if [[ ! -f "$file" ]]; then
     exit 1
 fi
 
-# Получаем абсолютный путь
 abs_path=$(realpath "$file")
-
-# Считаем совпадения (регистрозависимый поиск)
 count=$(grep -c -F "$search" "$abs_path" 2>/dev/null || echo 0)
 
 if [[ $count -gt 0 ]]; then

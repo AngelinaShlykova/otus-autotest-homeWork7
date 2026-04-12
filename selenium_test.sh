@@ -2,7 +2,6 @@
 
 if [[ $# -ne 3 ]]; then
     echo "Использование: $0 <url_стенда> <браузер> <версия>"
-    echo "Пример: $0 https://myapp.test chrome 114"
     exit 1
 fi
 
@@ -11,13 +10,11 @@ BROWSER="$2"
 BROWSER_VERSION="$3"
 SELENIUM_HUB="http://localhost:4444/wd/hub"
 
-echo "🚀 Запуск теста:"
+echo " Запуск теста:"
 echo "   Стенд: $STAND_URL"
 echo "   Браузер: $BROWSER $BROWSER_VERSION"
 echo "   Selenium Hub: $SELENIUM_HUB"
 
-# Пример вызова теста через Maven (адаптируй под свой сборщик)
-# Важно: передаём параметры в тест через -D
 mvn test \
     -Dselenium.grid.url="$SELENIUM_HUB" \
     -Dtest.stand.url="$STAND_URL" \
@@ -25,19 +22,12 @@ mvn test \
     -Dbrowser.version="$BROWSER_VERSION" \
     -Dheadless=true
 
-# Если используешь Gradle:
-# gradle test \
-#     -Dselenium.grid.url="$SELENIUM_HUB" \
-#     -Dtest.stand.url="$STAND_URL" \
-#     -Dbrowser.name="$BROWSER" \
-#     -Dbrowser.version="$BROWSER_VERSION"
-
 exit_code=$?
 
 if [[ $exit_code -eq 0 ]]; then
-    echo "✅ Тесты прошли успешно"
+    echo " Тесты прошли успешно"
 else
-    echo "❌ Тесты упали с кодом: $exit_code"
+    echo " Тесты упали с кодом: $exit_code"
 fi
 
 exit $exit_code
